@@ -5,7 +5,6 @@ public class LoginOutput {
     String email;
 
     public LoginOutput(String accesscode, String email) {
-
         this.accesscode = accesscode;
         this.email = email;
     }
