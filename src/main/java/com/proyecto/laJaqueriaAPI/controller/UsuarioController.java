@@ -3,68 +3,79 @@ package com.proyecto.laJaqueriaAPI.controller;
 import com.proyecto.laJaqueriaAPI.model.Usuario;
 import com.proyecto.laJaqueriaAPI.services.LoginOutput;
 import com.proyecto.laJaqueriaAPI.services.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/usuarios")
+@CrossOrigin
 public class UsuarioController {
-    private UsuarioService service;
+    private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
     }
 
-    private UsuarioOutputDTO convertir(Usuario usuario){
-        UsuarioOutputDTO usuarioOutputDTO = new UsuarioOutputDTO(usuario.getNombre(), usuario.getApellidos(), usuario.getEmail(), usuario.getIdUsuario());
-        return usuarioOutputDTO;
+    private UsuarioOutputDTO convertir(Usuario usuario) {
+        return new UsuarioOutputDTO(
+                usuario.getNombre(),
+                usuario.getApellidos(),
+                usuario.getEmail(),
+                usuario.getIdUsuario()
+        );
     }
 
-    private List<UsuarioOutputDTO> convertirLista(List<Usuario> usuarioList){
-        List<UsuarioOutputDTO> usuarioOutputDTOList = new ArrayList<>();
-        for (int i = 0; i<usuarioList.size(); i++){
-            usuarioOutputDTOList.add(convertir(usuarioList.get(i)));
-        }
-        return usuarioOutputDTOList;
+    private List<UsuarioOutputDTO> convertirLista(List<Usuario> usuarioList) {
+        return usuarioList.stream().map(this::convertir).collect(Collectors.toList());
     }
 
-    @CrossOrigin
-    @GetMapping("/usuarios")
-    public List<UsuarioOutputDTO> getUsuarios(){
+    @PreAuthorize("hasRole('SOCIO') or hasRole('ADMIN')")
+    @GetMapping
+    public List<UsuarioOutputDTO> getUsuarios() {
         return convertirLista(this.service.getAllUsuarios());
     }
 
-    @CrossOrigin
-    @GetMapping("/usuarios/{idUsuario}")
-    public UsuarioOutputDTO getUsuarioById(@PathVariable Long idUsuario){
-        return convertir(this.service.getUsuarioById(idUsuario));
+    @PreAuthorize("hasRole('SOCIO') or hasRole('ADMIN')")
+    @GetMapping("/{idUsuario}")
+    public ResponseEntity<UsuarioOutputDTO> getUsuarioById(@PathVariable Long idUsuario) {
+        Optional<Usuario> usuario = Optional.ofNullable(service.getUsuarioById(idUsuario));
+        return usuario.map(value -> ResponseEntity.ok(convertir(value)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @CrossOrigin
     @PostMapping("/login")
-    public LoginOutput loginUsuario(@RequestBody LoginDTO loginDTO) throws NoSuchAlgorithmException {
-        return new LoginOutput(this.service.login(loginDTO.getUsuario(), loginDTO.getPassword()).getAccesscode(), this.service.login(loginDTO.getUsuario(), loginDTO.getPassword()).getEmail());
+    public ResponseEntity<LoginOutput> loginUsuario(@RequestBody LoginDTO loginDTO) throws NoSuchAlgorithmException {
+        LoginOutput usuario = this.service.login(loginDTO.getUsuario(), loginDTO.getPassword());
+        return ResponseEntity.ok(new LoginOutput(usuario.getAccesscode(), usuario.getEmail()));
     }
 
-    @CrossOrigin
-    @PostMapping("/usuarios")
-    public UsuarioOutputDTO crearUsuario(@RequestBody UsuarioDTO usuarioDTO) throws NoSuchAlgorithmException {
-        return convertir(this.service.createUsuario(
-                usuarioDTO.getNombre(), usuarioDTO.getApellidos(), usuarioDTO.getEmail(), usuarioDTO.getPassword()));
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping
+    public ResponseEntity<UsuarioOutputDTO> crearUsuario(@RequestBody UsuarioDTO usuarioDTO) throws NoSuchAlgorithmException {
+        Usuario nuevoUsuario = this.service.createUsuario(
+                usuarioDTO.getNombre(), usuarioDTO.getApellidos(), usuarioDTO.getEmail(), usuarioDTO.getPassword());
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertir(nuevoUsuario));
     }
 
-    @CrossOrigin
-    @PutMapping("/usuarios/{idUsuario}")
-    public UsuarioOutputDTO updateUsuario(@PathVariable Long idUsuario, @RequestBody UsuarioDTO usuarioDTO){
-        return convertir(this.service.updateUsuario(
-                usuarioDTO.getNombre(), usuarioDTO.getApellidos(), usuarioDTO.getEmail(), usuarioDTO.getPassword(), idUsuario));
+    @PreAuthorize("hasRole('SOCIO') or hasRole('ADMIN')")
+    @PutMapping("/{idUsuario}")
+    public ResponseEntity<UsuarioOutputDTO> updateUsuario(@PathVariable Long idUsuario, @RequestBody UsuarioDTO usuarioDTO) {
+        Usuario usuarioActualizado = this.service.updateUsuario(
+                usuarioDTO.getNombre(), usuarioDTO.getApellidos(), usuarioDTO.getEmail(), usuarioDTO.getPassword(), idUsuario);
+        return ResponseEntity.ok(convertir(usuarioActualizado));
     }
 
-    @CrossOrigin
-    @DeleteMapping("/usuarios/{idUsario}")
-    public void deleteUsuario(@PathVariable Long idUsuario){
-        this.service.deleteUser(idUsuario);
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{idUsuario}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long idUsuario) {
+        service.deleteUser(idUsuario);
+        return ResponseEntity.noContent().build();
     }
 }

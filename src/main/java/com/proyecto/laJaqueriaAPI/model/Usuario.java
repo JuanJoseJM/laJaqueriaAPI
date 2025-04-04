@@ -11,6 +11,7 @@ public class Usuario {
     private String apellidos = "";
     private String email = "";
     private String password = "";
+    private String rol ="";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) private Long idUsuario;
@@ -64,5 +65,13 @@ public class Usuario {
 
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
