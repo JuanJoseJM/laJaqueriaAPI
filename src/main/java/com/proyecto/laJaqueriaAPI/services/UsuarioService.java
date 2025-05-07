@@ -38,7 +38,7 @@ public class UsuarioService {
      * Inicia sesión y genera un código de acceso si las credenciales son correctas.
      */
     public LoginOutput login(String email, String password) {
-        Usuario usuario = repository.findByEmailAndPassword(email)
+        Usuario usuario = repository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         if (!passwordEncoder.matches(password, usuario.getPassword())) {
@@ -54,7 +54,7 @@ public class UsuarioService {
      * Crea un nuevo usuario con contraseña encriptada.
      */
     public Usuario createUsuario(String nombre, String apellidos, String email, String password) {
-        if (repository.findByEmailAndPassword(email).isPresent()) {
+        if (repository.findByEmailAndPassword(email, password).isPresent()) {
             throw new RuntimeException("El correo ya está registrado");
         }
 
