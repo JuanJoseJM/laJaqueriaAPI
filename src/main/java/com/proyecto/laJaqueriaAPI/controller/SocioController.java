@@ -1,5 +1,6 @@
 package com.proyecto.laJaqueriaAPI.controller;
 
+import com.proyecto.laJaqueriaAPI.dto.SocioDTO;
 import com.proyecto.laJaqueriaAPI.model.Socio;
 import com.proyecto.laJaqueriaAPI.services.SocioService;
 import org.springframework.security.access.prepost.PreAuthorize;

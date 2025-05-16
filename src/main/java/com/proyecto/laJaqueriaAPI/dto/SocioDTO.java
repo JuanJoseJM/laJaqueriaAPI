@@ -1,4 +1,4 @@
-package com.proyecto.laJaqueriaAPI.controller;
+package com.proyecto.laJaqueriaAPI.dto;
 
 public class SocioDTO {
 

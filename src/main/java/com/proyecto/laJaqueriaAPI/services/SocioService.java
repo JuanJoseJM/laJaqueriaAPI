@@ -50,6 +50,5 @@ public class SocioService {
 
     public void generarInformePDF() {
         // Implementación para generar un informe PDF de todos los socios
-        // Puedes usar bibliotecas como iText o Apache PDFBox
     }
 }

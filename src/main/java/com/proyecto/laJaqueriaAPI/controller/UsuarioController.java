@@ -1,5 +1,8 @@
 package com.proyecto.laJaqueriaAPI.controller;
 
+import com.proyecto.laJaqueriaAPI.dto.LoginDTO;
+import com.proyecto.laJaqueriaAPI.dto.UsuarioDTO;
+import com.proyecto.laJaqueriaAPI.dto.UsuarioOutputDTO;
 import com.proyecto.laJaqueriaAPI.model.Usuario;
 import com.proyecto.laJaqueriaAPI.services.LoginOutput;
 import com.proyecto.laJaqueriaAPI.services.UsuarioService;
@@ -28,7 +31,7 @@ public class UsuarioController {
                 usuario.getNombre(),
                 usuario.getApellidos(),
                 usuario.getEmail(),
-                usuario.getIdUsuario()
+                usuario.getId()
         );
     }
 
