@@ -31,7 +31,7 @@ public class UsuarioController {
                 usuario.getNombre(),
                 usuario.getApellidos(),
                 usuario.getEmail(),
-                usuario.getId()
+                usuario.getIdUsuario()
         );
     }
 
