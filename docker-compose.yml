@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: jaqueria-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jaqueria_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - jaqueria-mysql-data:/var/lib/mysql
+
+volumes:
+  jaqueria-mysql-data:
