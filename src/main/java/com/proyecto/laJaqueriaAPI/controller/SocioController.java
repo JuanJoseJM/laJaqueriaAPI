@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Controlador REST que gestiona operaciones relacionadas con los socios del sistema.
- *
+ * <p>
  * Permite listar, registrar, actualizar y eliminar socios, así como generar informes.
  */
 @RestController
@@ -21,6 +21,7 @@ public class SocioController {
 
     /**
      * Constructor que inyecta el servicio de socios.
+     *
      * @param service servicio de lógica de negocio para socios
      */
     public SocioController(SocioService service) {
@@ -29,6 +30,7 @@ public class SocioController {
 
     /**
      * Obtiene una lista de todos los socios registrados, con opción de filtrar por nombre.
+     *
      * @param nombre (opcional) nombre para filtrar
      * @return lista de socios
      */
@@ -40,6 +42,7 @@ public class SocioController {
 
     /**
      * Consulta los datos de un socio por su ID.
+     *
      * @param id identificador del socio
      * @return objeto Socio encontrado
      */
@@ -51,6 +54,7 @@ public class SocioController {
 
     /**
      * Crea un nuevo socio. Solo permitido para administradores.
+     *
      * @param socioDTO datos del socio a registrar
      * @return socio creado
      */
@@ -63,6 +67,7 @@ public class SocioController {
 
     /**
      * Elimina un socio existente. Solo permitido para administradores.
+     *
      * @param id identificador del socio
      */
     @PreAuthorize("hasRole('ADMIN')")
@@ -74,7 +79,8 @@ public class SocioController {
 
     /**
      * Actualiza los datos de un socio existente.
-     * @param id identificador del socio
+     *
+     * @param id       identificador del socio
      * @param socioDTO nuevos datos del socio
      * @return socio actualizado
      */

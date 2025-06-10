@@ -30,6 +30,7 @@ public class UsuarioController {
 
     /**
      * Constructor que inyecta el servicio de usuarios.
+     *
      * @param service instancia del servicio
      */
     public UsuarioController(UsuarioService service) {
@@ -57,6 +58,7 @@ public class UsuarioController {
 
     /**
      * Obtiene todos los usuarios registrados.
+     *
      * @return lista de usuarios
      */
     @PreAuthorize("hasRole('SOCIO') or hasRole('ADMIN')")
@@ -67,6 +69,7 @@ public class UsuarioController {
 
     /**
      * Consulta un usuario por su ID.
+     *
      * @param idUsuario ID del usuario
      * @return usuario encontrado o 404 si no existe
      */
@@ -80,8 +83,10 @@ public class UsuarioController {
 
     /**
      * Endpoint de login personalizado. Devuelve token de acceso y email.
+     *
      * @param loginDTO credenciales de login
      * @return token JWT y email del usuario
+     * @throws NoSuchAlgorithmException the no such algorithm exception
      */
     @PostMapping("/login")
     public ResponseEntity<LoginOutput> loginUsuario(@RequestBody LoginDTO loginDTO) throws NoSuchAlgorithmException {
@@ -91,8 +96,10 @@ public class UsuarioController {
 
     /**
      * Crea un nuevo usuario. Solo accesible por administradores.
+     *
      * @param usuarioDTO datos del nuevo usuario
      * @return DTO del usuario creado
+     * @throws NoSuchAlgorithmException the no such algorithm exception
      */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
@@ -104,7 +111,8 @@ public class UsuarioController {
 
     /**
      * Actualiza los datos de un usuario existente.
-     * @param idUsuario ID del usuario
+     *
+     * @param idUsuario  ID del usuario
      * @param usuarioDTO nuevos datos
      * @return usuario actualizado
      */
@@ -118,6 +126,7 @@ public class UsuarioController {
 
     /**
      * Elimina un usuario por su ID. Solo permitido para administradores.
+     *
      * @param idUsuario ID del usuario
      * @return respuesta sin contenido
      */

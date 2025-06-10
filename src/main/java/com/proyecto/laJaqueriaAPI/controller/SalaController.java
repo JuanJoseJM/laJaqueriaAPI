@@ -18,6 +18,7 @@ public class SalaController {
 
     /**
      * Constructor del controlador de salas.
+     *
      * @param salaRepository Repositorio de salas
      */
     public SalaController(SalaRepository salaRepository) {
@@ -26,6 +27,7 @@ public class SalaController {
 
     /**
      * Lista todas las salas existentes.
+     *
      * @return Lista de salas
      */
     @GetMapping
@@ -35,6 +37,7 @@ public class SalaController {
 
     /**
      * Crea una nueva sala.
+     *
      * @param sala Sala a crear
      * @return Sala guardada
      */
@@ -45,7 +48,8 @@ public class SalaController {
 
     /**
      * Actualiza una sala existente.
-     * @param id ID de la sala a actualizar
+     *
+     * @param id   ID de la sala a actualizar
      * @param sala Sala con los datos actualizados
      * @return Sala actualizada
      */
@@ -57,6 +61,7 @@ public class SalaController {
 
     /**
      * Elimina una sala por su ID.
+     *
      * @param id ID de la sala a eliminar
      */
     @DeleteMapping("/{id}")

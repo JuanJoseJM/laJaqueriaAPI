@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Entidad que representa un evento dentro del espacio de coworking.
- *
+ * <p>
  * Un evento tiene un nombre, una descripción, una fecha, y una lista de socios inscritos.
  */
 @Entity
@@ -38,14 +38,17 @@ public class Evento {
     )
     private List<Socio> socios;
 
-    /** Constructor vacío requerido por JPA */
+    /**
+     * Constructor vacío requerido por JPA
+     */
     public Evento() {}
 
     /**
      * Constructor con parámetros principales.
-     * @param nombre nombre del evento
+     *
+     * @param nombre      nombre del evento
      * @param descripcion descripción del evento
-     * @param fecha fecha del evento
+     * @param fecha       fecha del evento
      */
     public Evento(String nombre, String descripcion, String fecha) {
         this.nombre = nombre;
@@ -53,42 +56,92 @@ public class Evento {
         this.fecha = fecha;
     }
 
+    /**
+     * Gets id evento.
+     *
+     * @return the id evento
+     */
     public Long getIdEvento() {
         return idEvento;
     }
 
+    /**
+     * Sets id evento.
+     *
+     * @param idEvento the id evento
+     */
     public void setIdEvento(Long idEvento) {
         this.idEvento = idEvento;
     }
 
+    /**
+     * Gets nombre.
+     *
+     * @return the nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Sets nombre.
+     *
+     * @param nombre the nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Gets descripcion.
+     *
+     * @return the descripcion
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Sets descripcion.
+     *
+     * @param descripcion the descripcion
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Gets fecha.
+     *
+     * @return the fecha
+     */
     public String getFecha() {
         return fecha;
     }
 
+    /**
+     * Sets fecha.
+     *
+     * @param fecha the fecha
+     */
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Gets socios.
+     *
+     * @return the socios
+     */
     public List<Socio> getSocios() {
         return socios;
     }
 
+    /**
+     * Sets socios.
+     *
+     * @param socios the socios
+     */
     public void setSocios(List<Socio> socios) {
         this.socios = socios;
     }

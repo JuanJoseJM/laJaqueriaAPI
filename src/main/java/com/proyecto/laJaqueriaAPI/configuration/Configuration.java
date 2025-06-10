@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * Clase de configuración de seguridad para definir autenticación básica
  * y un usuario de prueba en memoria.
- *
+ * <p>
  * Esta configuración es utilizada principalmente para pruebas o como
  * fallback cuando no se usa autenticación con base de datos.
  */
@@ -41,7 +41,7 @@ public class Configuration {
 
     /**
      * Configura la cadena de filtros de seguridad (Security Filter Chain).
-     *
+     * <p>
      * Desactiva CSRF, permite acceso libre al login y exige autenticación
      * para el resto de endpoints.
      *

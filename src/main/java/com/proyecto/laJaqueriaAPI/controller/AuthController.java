@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Controlador que gestiona el registro de nuevos usuarios.
- *
+ * <p>
  * Este endpoint permite que cualquier usuario se registre
  * automáticamente con el rol SOCIO por defecto.
  */
@@ -36,7 +36,7 @@ public class AuthController {
 
     /**
      * Endpoint de registro para nuevos usuarios.
-     *
+     * <p>
      * Se registran como SOCIO por defecto. Verifica que el correo no esté ya registrado.
      *
      * @param dto objeto con los datos del usuario (nombre, apellidos, email, contraseña)

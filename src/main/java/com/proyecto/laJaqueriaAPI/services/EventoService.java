@@ -18,6 +18,7 @@ public class EventoService {
 
     /**
      * Constructor que inyecta el repositorio de eventos.
+     *
      * @param eventoRepository repositorio de acceso a datos de Evento
      */
     public EventoService(EventoRepository eventoRepository) {
@@ -26,6 +27,7 @@ public class EventoService {
 
     /**
      * Obtiene todos los eventos existentes.
+     *
      * @return lista de eventos
      */
     public List<Evento> getAllEventos() {
@@ -34,6 +36,7 @@ public class EventoService {
 
     /**
      * Busca un evento por su ID.
+     *
      * @param idEvento identificador del evento
      * @return objeto Evento o null si no se encuentra
      */
@@ -44,9 +47,10 @@ public class EventoService {
 
     /**
      * Crea un nuevo evento con los datos proporcionados.
-     * @param nombre nombre del evento
+     *
+     * @param nombre      nombre del evento
      * @param descripcion descripción del evento
-     * @param fecha fecha del evento
+     * @param fecha       fecha del evento
      * @return evento creado
      */
     public Evento createEvento(String nombre, String descripcion, String fecha) {
@@ -56,10 +60,11 @@ public class EventoService {
 
     /**
      * Actualiza los datos de un evento existente.
-     * @param idEvento ID del evento a actualizar
-     * @param nombre nuevo nombre
+     *
+     * @param idEvento    ID del evento a actualizar
+     * @param nombre      nuevo nombre
      * @param descripcion nueva descripción
-     * @param fecha nueva fecha
+     * @param fecha       nueva fecha
      * @return evento actualizado o null si no existe
      */
     public Evento updateEvento(Long idEvento, String nombre, String descripcion, String fecha) {
@@ -75,6 +80,7 @@ public class EventoService {
 
     /**
      * Elimina un evento por su ID.
+     *
      * @param idEvento ID del evento a eliminar
      */
     public void deleteEvento(Long idEvento) {
@@ -84,8 +90,9 @@ public class EventoService {
     /**
      * Inscribe un socio en un evento.
      * (Actualmente el socio no se recupera realmente de la base de datos).
+     *
      * @param idEvento ID del evento
-     * @param idSocio ID del socio
+     * @param idSocio  ID del socio
      */
     public void inscribirSocio(Long idEvento, Long idSocio) {
         Evento evento = eventoRepository.findById(idEvento).orElse(null);

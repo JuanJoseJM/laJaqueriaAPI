@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Servicio encargado de gestionar la lógica de negocio relacionada con los usuarios.
- *
+ * <p>
  * Incluye autenticación, creación, modificación y eliminación de usuarios.
  */
 @Service
@@ -21,6 +21,7 @@ public class UsuarioService {
 
     /**
      * Constructor que inyecta el repositorio y configura el codificador de contraseñas.
+     *
      * @param repository repositorio de acceso a datos de usuario
      */
     public UsuarioService(UsuarioRepository repository) {
@@ -30,6 +31,7 @@ public class UsuarioService {
 
     /**
      * Obtiene la lista de todos los usuarios registrados.
+     *
      * @return lista de usuarios
      */
     public List<Usuario> getAllUsuarios() {
@@ -38,6 +40,7 @@ public class UsuarioService {
 
     /**
      * Obtiene un usuario por su ID.
+     *
      * @param idUser identificador del usuario
      * @return objeto Usuario o lanza excepción si no existe
      */
@@ -48,7 +51,8 @@ public class UsuarioService {
 
     /**
      * Autentica un usuario usando email y contraseña.
-     * @param email correo electrónico
+     *
+     * @param email    correo electrónico
      * @param password contraseña en texto plano
      * @return objeto LoginOutput con token y correo
      */
@@ -67,10 +71,11 @@ public class UsuarioService {
 
     /**
      * Crea un nuevo usuario si no existe previamente.
-     * @param nombre nombre
+     *
+     * @param nombre    nombre
      * @param apellidos apellidos
-     * @param email correo
-     * @param password contraseña
+     * @param email     correo
+     * @param password  contraseña
      * @return usuario creado
      */
     public Usuario createUsuario(String nombre, String apellidos, String email, String password) {
@@ -88,10 +93,11 @@ public class UsuarioService {
 
     /**
      * Actualiza los datos de un usuario existente.
-     * @param nombre nuevo nombre
+     *
+     * @param nombre    nuevo nombre
      * @param apellidos nuevos apellidos
-     * @param email nuevo correo
-     * @param password nueva contraseña
+     * @param email     nuevo correo
+     * @param password  nueva contraseña
      * @param idUsuario ID del usuario a modificar
      * @return usuario actualizado
      */
@@ -112,6 +118,7 @@ public class UsuarioService {
 
     /**
      * Elimina un usuario por su ID.
+     *
      * @param idUser ID del usuario a eliminar
      */
     public void deleteUser(Long idUser) {

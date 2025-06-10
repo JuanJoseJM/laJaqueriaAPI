@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Controlador REST para gestionar eventos del coworking.
- *
+ * <p>
  * Permite a administradores crear, modificar y eliminar eventos.
  * Los socios pueden consultar e inscribirse a eventos.
  */
@@ -21,6 +21,7 @@ public class EventoController {
 
     /**
      * Constructor que inyecta el servicio de eventos.
+     *
      * @param eventoService Servicio de lógica de eventos
      */
     public EventoController(EventoService eventoService) {
@@ -29,6 +30,7 @@ public class EventoController {
 
     /**
      * Obtiene todos los eventos registrados en el sistema.
+     *
      * @return lista de eventos
      */
     @CrossOrigin
@@ -39,6 +41,7 @@ public class EventoController {
 
     /**
      * Obtiene un evento específico por su ID.
+     *
      * @param idEvento ID del evento
      * @return objeto Evento
      */
@@ -50,6 +53,7 @@ public class EventoController {
 
     /**
      * Crea un nuevo evento. Solo accesible por administradores.
+     *
      * @param evento objeto Evento con los datos necesarios
      * @return evento creado
      */
@@ -62,8 +66,9 @@ public class EventoController {
 
     /**
      * Actualiza un evento existente por su ID. Solo admins.
+     *
      * @param idEvento ID del evento
-     * @param evento objeto Evento actualizado
+     * @param evento   objeto Evento actualizado
      * @return evento actualizado
      */
     @PreAuthorize("hasRole('ADMIN')")
@@ -75,6 +80,7 @@ public class EventoController {
 
     /**
      * Elimina un evento existente. Solo accesible por administradores.
+     *
      * @param idEvento ID del evento
      */
     @PreAuthorize("hasRole('ADMIN')")
@@ -86,8 +92,9 @@ public class EventoController {
 
     /**
      * Inscribe un socio en un evento determinado.
+     *
      * @param idEvento ID del evento
-     * @param idSocio ID del socio
+     * @param idSocio  ID del socio
      */
     @CrossOrigin
     @PostMapping("/{idEvento}/inscribir")
@@ -97,6 +104,7 @@ public class EventoController {
 
     /**
      * Genera un informe PDF de los eventos. Solo admins.
+     *
      * @return mensaje de confirmación
      */
     @PreAuthorize("hasRole('ADMIN')")

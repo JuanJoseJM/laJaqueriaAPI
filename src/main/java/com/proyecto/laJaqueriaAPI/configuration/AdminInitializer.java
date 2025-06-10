@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * Clase que se ejecuta automáticamente al iniciar la aplicación para insertar
  * usuarios predeterminados (admin y socio) si no existen en la base de datos.
- *
+ * <p>
  * Esta clase garantiza que siempre habrá al menos un usuario administrador y
  * un socio de prueba disponibles para autenticación inicial.
  */

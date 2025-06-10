@@ -17,6 +17,7 @@ public class SocioService {
 
     /**
      * Constructor que inyecta el repositorio de socios.
+     *
      * @param repository repositorio de acceso a datos de Socio
      */
     @Autowired
@@ -26,6 +27,7 @@ public class SocioService {
 
     /**
      * Obtiene una lista de todos los socios, o filtrados por nombre si se indica.
+     *
      * @param nombre nombre parcial para filtrar (puede ser null)
      * @return lista de socios
      */
@@ -38,6 +40,7 @@ public class SocioService {
 
     /**
      * Busca un socio por su ID.
+     *
      * @param id identificador del socio
      * @return socio encontrado o null si no existe
      */
@@ -47,9 +50,10 @@ public class SocioService {
 
     /**
      * Crea un nuevo socio con los datos proporcionados.
-     * @param nombre nombre del socio
+     *
+     * @param nombre    nombre del socio
      * @param apellidos apellidos del socio
-     * @param edad edad del socio
+     * @param edad      edad del socio
      * @return socio creado
      */
     public Socio createSocio(String nombre, String apellidos, int edad) {
@@ -59,10 +63,11 @@ public class SocioService {
 
     /**
      * Actualiza los datos de un socio existente.
-     * @param nombre nuevo nombre
+     *
+     * @param nombre    nuevo nombre
      * @param apellidos nuevos apellidos
-     * @param edad nueva edad
-     * @param id identificador del socio a actualizar
+     * @param edad      nueva edad
+     * @param id        identificador del socio a actualizar
      * @return socio actualizado o null si no existe
      */
     public Socio updateSocio(String nombre, String apellidos, int edad, Long id) {
@@ -78,6 +83,7 @@ public class SocioService {
 
     /**
      * Elimina un socio por su ID.
+     *
      * @param id identificador del socio a eliminar
      */
     public void deleteSocio(Long id) {

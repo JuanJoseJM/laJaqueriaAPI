@@ -2,7 +2,7 @@ package com.proyecto.laJaqueriaAPI.dto;
 
 /**
  * Objeto de transferencia de datos (DTO) para representar la información básica de un socio.
- *
+ * <p>
  * Este DTO es usado para crear o actualizar socios desde el frontend o clientes externos.
  */
 public class SocioDTO {
@@ -18,9 +18,10 @@ public class SocioDTO {
 
     /**
      * Constructor completo con parámetros.
-     * @param nombre nombre del socio
+     *
+     * @param nombre    nombre del socio
      * @param apellidos apellidos del socio
-     * @param edad edad del socio
+     * @param edad      edad del socio
      */
     public SocioDTO(String nombre, String apellidos, int edad) {
         this.nombre = nombre;
@@ -28,32 +29,56 @@ public class SocioDTO {
         this.edad = edad;
     }
 
-    /** @return nombre del socio */
+    /**
+     * Gets nombre.
+     *
+     * @return nombre del socio
+     */
     public String getNombre() {
         return nombre;
     }
 
-    /** @param nombre nombre a establecer */
+    /**
+     * Sets nombre.
+     *
+     * @param nombre nombre a establecer
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /** @return apellidos del socio */
+    /**
+     * Gets apellidos.
+     *
+     * @return apellidos del socio
+     */
     public String getApellidos() {
         return apellidos;
     }
 
-    /** @param apellidos apellidos a establecer */
+    /**
+     * Sets apellidos.
+     *
+     * @param apellidos apellidos a establecer
+     */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
-    /** @return edad del socio */
+    /**
+     * Gets edad.
+     *
+     * @return edad del socio
+     */
     public int getEdad() {
         return edad;
     }
 
-    /** @param edad edad a establecer */
+    /**
+     * Sets edad.
+     *
+     * @param edad edad a establecer
+     */
     public void setEdad(int edad) {
         this.edad = edad;
     }

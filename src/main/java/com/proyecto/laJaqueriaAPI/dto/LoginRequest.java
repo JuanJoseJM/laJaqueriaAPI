@@ -2,7 +2,7 @@ package com.proyecto.laJaqueriaAPI.dto;
 
 /**
  * Objeto de transferencia de datos (DTO) utilizado en solicitudes de inicio de sesión.
- *
+ * <p>
  * Contiene las credenciales enviadas por el usuario: email y contraseña.
  */
 public class LoginRequest {
@@ -15,7 +15,8 @@ public class LoginRequest {
 
     /**
      * Obtiene el correo electrónico del usuario.
-     * @return email
+     *
+     * @return email email
      */
     public String getEmail() {
         return email;
@@ -23,6 +24,7 @@ public class LoginRequest {
 
     /**
      * Establece el correo electrónico del usuario.
+     *
      * @param email dirección de correo
      */
     public void setEmail(String email) {
@@ -31,6 +33,7 @@ public class LoginRequest {
 
     /**
      * Obtiene la contraseña del usuario.
+     *
      * @return contraseña en texto plano
      */
     public String getPassword() {
@@ -39,6 +42,7 @@ public class LoginRequest {
 
     /**
      * Establece la contraseña del usuario.
+     *
      * @param password contraseña sin cifrar
      */
     public void setPassword(String password) {

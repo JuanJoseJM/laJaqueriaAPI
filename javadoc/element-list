@@ -1,0 +1,8 @@
+com.proyecto.laJaqueriaAPI
+com.proyecto.laJaqueriaAPI.configuration
+com.proyecto.laJaqueriaAPI.controller
+com.proyecto.laJaqueriaAPI.dao
+com.proyecto.laJaqueriaAPI.dto
+com.proyecto.laJaqueriaAPI.model
+com.proyecto.laJaqueriaAPI.security
+com.proyecto.laJaqueriaAPI.services

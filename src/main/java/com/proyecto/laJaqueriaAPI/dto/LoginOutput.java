@@ -2,7 +2,7 @@ package com.proyecto.laJaqueriaAPI.dto;
 
 /**
  * Objeto de salida para el proceso de autenticación.
- *
+ * <p>
  * Contiene la respuesta que se entrega al usuario al iniciar sesión correctamente,
  * incluyendo el token de acceso y el correo asociado.
  */
@@ -16,8 +16,9 @@ public class LoginOutput {
 
     /**
      * Constructor con parámetros.
+     *
      * @param accesscode token de autenticación
-     * @param email correo electrónico del usuario
+     * @param email      correo electrónico del usuario
      */
     public LoginOutput(String accesscode, String email) {
         this.accesscode = accesscode;
@@ -26,12 +27,14 @@ public class LoginOutput {
 
     /**
      * Obtiene el token de acceso.
+     *
      * @return token JWT
      */
     public String getAccesscode() { return accesscode; }
 
     /**
      * Obtiene el email del usuario autenticado.
+     *
      * @return correo electrónico
      */
     public String getEmail() { return email; }

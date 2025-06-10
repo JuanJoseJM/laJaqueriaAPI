@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configuración principal de seguridad del sistema.
- *
+ * <p>
  * Define políticas de acceso a endpoints, gestión de login, logout
  * y uso de cifrado para contraseñas.
  */
@@ -20,7 +20,7 @@ public class SecurityConfig {
 
     /**
      * Define la cadena de filtros de seguridad.
-     *
+     * <p>
      * - Desactiva CSRF para compatibilidad con API REST.
      * - Permite el acceso libre a "/login" y "/register".
      * - Requiere autenticación para cualquier otro endpoint.

@@ -10,7 +10,7 @@ import java.util.Collections;
 
 /**
  * Servicio personalizado que implementa UserDetailsService.
- *
+ * <p>
  * Carga los detalles del usuario desde la base de datos usando su email.
  * Es usado por Spring Security para realizar el proceso de autenticación.
  */
@@ -21,6 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Constructor que inyecta el repositorio de usuarios.
+     *
      * @param usuarioRepository repositorio de acceso a datos de Usuario
      */
     public CustomUserDetailsService(UsuarioRepository usuarioRepository) {

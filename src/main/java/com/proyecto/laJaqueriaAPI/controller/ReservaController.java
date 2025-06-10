@@ -18,6 +18,7 @@ public class ReservaController {
 
     /**
      * Constructor del controlador de reservas.
+     *
      * @param reservaRepository Repositorio de reservas
      */
     public ReservaController(ReservaRepository reservaRepository) {
@@ -26,6 +27,7 @@ public class ReservaController {
 
     /**
      * Lista todas las reservas realizadas.
+     *
      * @return Lista de reservas
      */
     @GetMapping
@@ -35,6 +37,7 @@ public class ReservaController {
 
     /**
      * Crea una nueva reserva de sala.
+     *
      * @param reserva Reserva a crear
      * @return Reserva guardada
      */
@@ -45,6 +48,7 @@ public class ReservaController {
 
     /**
      * Cancela una reserva por su ID.
+     *
      * @param id ID de la reserva a cancelar
      */
     @DeleteMapping("/{id}")
