@@ -7,31 +7,52 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para gestionar eventos del coworking.
+ *
+ * Permite a administradores crear, modificar y eliminar eventos.
+ * Los socios pueden consultar e inscribirse a eventos.
+ */
 @RestController
 @RequestMapping("/eventos")
 public class EventoController {
 
     private final EventoService eventoService;
 
+    /**
+     * Constructor que inyecta el servicio de eventos.
+     * @param eventoService Servicio de lógica de eventos
+     */
     public EventoController(EventoService eventoService) {
         this.eventoService = eventoService;
     }
 
-    // Consulta de todos los eventos (accesible por todos)
+    /**
+     * Obtiene todos los eventos registrados en el sistema.
+     * @return lista de eventos
+     */
     @CrossOrigin
     @GetMapping
     public List<Evento> getEventos() {
         return eventoService.getAllEventos();
     }
 
-    // Consulta de un evento específico por su ID (accesible por todos)
+    /**
+     * Obtiene un evento específico por su ID.
+     * @param idEvento ID del evento
+     * @return objeto Evento
+     */
     @CrossOrigin
     @GetMapping("/{idEvento}")
     public Evento getEventoById(@PathVariable Long idEvento) {
         return eventoService.getEventoById(idEvento);
     }
 
-    // Alta de evento (solo administradores)
+    /**
+     * Crea un nuevo evento. Solo accesible por administradores.
+     * @param evento objeto Evento con los datos necesarios
+     * @return evento creado
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @PostMapping
@@ -39,7 +60,12 @@ public class EventoController {
         return eventoService.createEvento(evento.getNombre(), evento.getDescripcion(), evento.getFecha());
     }
 
-    // Modificación de evento (solo administradores)
+    /**
+     * Actualiza un evento existente por su ID. Solo admins.
+     * @param idEvento ID del evento
+     * @param evento objeto Evento actualizado
+     * @return evento actualizado
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @PutMapping("/{idEvento}")
@@ -47,7 +73,10 @@ public class EventoController {
         return eventoService.updateEvento(idEvento, evento.getNombre(), evento.getDescripcion(), evento.getFecha());
     }
 
-    // Baja de evento (solo administradores)
+    /**
+     * Elimina un evento existente. Solo accesible por administradores.
+     * @param idEvento ID del evento
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @DeleteMapping("/{idEvento}")
@@ -55,14 +84,21 @@ public class EventoController {
         eventoService.deleteEvento(idEvento);
     }
 
-    // Inscripción de un socio en un evento
+    /**
+     * Inscribe un socio en un evento determinado.
+     * @param idEvento ID del evento
+     * @param idSocio ID del socio
+     */
     @CrossOrigin
     @PostMapping("/{idEvento}/inscribir")
     public void inscribirSocio(@PathVariable Long idEvento, @RequestBody Long idSocio) {
         eventoService.inscribirSocio(idEvento, idSocio);
     }
 
-    // Informe PDF de los eventos (solo administradores)
+    /**
+     * Genera un informe PDF de los eventos. Solo admins.
+     * @return mensaje de confirmación
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @GetMapping("/informe")

@@ -35,7 +35,6 @@ public class DomoticaController {
      * @param comando Comando en texto plano enviado desde el cuerpo de la petición
      * @return Respuesta HTTP indicando éxito o error
      */
-
     @PostMapping("/enviar")
     public ResponseEntity<String> enviarComando(@RequestBody String comando) {
         try {
@@ -47,4 +46,3 @@ public class DomoticaController {
         }
     }
 }
-

@@ -3,36 +3,56 @@ package com.proyecto.laJaqueriaAPI.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+/**
+ * Entidad que representa un evento dentro del espacio de coworking.
+ *
+ * Un evento tiene un nombre, una descripción, una fecha, y una lista de socios inscritos.
+ */
 @Entity
 public class Evento {
 
+    /** Identificador único del evento (clave primaria) */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEvento;
 
+    /** Nombre del evento */
     private String nombre;
+
+    /** Descripción del evento */
     private String descripcion;
+
+    /** Fecha del evento (formato String) */
     private String fecha;
 
+    /**
+     * Lista de socios inscritos al evento.
+     *
+     * Relación muchos a muchos con la entidad Socio.
+     */
     @ManyToMany
     @JoinTable(
             name = "evento_socio",
             joinColumns = @JoinColumn(name = "idEvento"),
             inverseJoinColumns = @JoinColumn(name = "idSocio")
     )
-    private List<Socio> socios; // Los socios inscritos en el evento
+    private List<Socio> socios;
 
-    // Constructor sin parámetros (para JPA)
+    /** Constructor vacío requerido por JPA */
     public Evento() {}
 
-    // Constructor con parámetros
+    /**
+     * Constructor con parámetros principales.
+     * @param nombre nombre del evento
+     * @param descripcion descripción del evento
+     * @param fecha fecha del evento
+     */
     public Evento(String nombre, String descripcion, String fecha) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
     }
 
-    // Getters y Setters
     public Long getIdEvento() {
         return idEvento;
     }

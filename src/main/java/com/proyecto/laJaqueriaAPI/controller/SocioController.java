@@ -8,31 +8,52 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST que gestiona operaciones relacionadas con los socios del sistema.
+ *
+ * Permite listar, registrar, actualizar y eliminar socios, así como generar informes.
+ */
 @RestController
 @RequestMapping("/socios")
 public class SocioController {
 
     private final SocioService service;
 
+    /**
+     * Constructor que inyecta el servicio de socios.
+     * @param service servicio de lógica de negocio para socios
+     */
     public SocioController(SocioService service) {
         this.service = service;
     }
 
-    // Consulta de socios (accesible por todos los socios)
+    /**
+     * Obtiene una lista de todos los socios registrados, con opción de filtrar por nombre.
+     * @param nombre (opcional) nombre para filtrar
+     * @return lista de socios
+     */
     @CrossOrigin
     @GetMapping
     public List<Socio> getSocios(@RequestParam(required = false) String nombre) {
         return service.getAllSocios(nombre);
     }
 
-    // Consulta de un socio por su ID (accesible por todos los socios)
+    /**
+     * Consulta los datos de un socio por su ID.
+     * @param id identificador del socio
+     * @return objeto Socio encontrado
+     */
     @CrossOrigin
     @GetMapping("/{id}")
     public Socio getSocioById(@PathVariable Long id) {
         return service.getSocioById(id);
     }
 
-    // Alta de un nuevo socio (solo administradores)
+    /**
+     * Crea un nuevo socio. Solo permitido para administradores.
+     * @param socioDTO datos del socio a registrar
+     * @return socio creado
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @PostMapping
@@ -40,7 +61,10 @@ public class SocioController {
         return service.createSocio(socioDTO.getNombre(), socioDTO.getApellidos(), socioDTO.getEdad());
     }
 
-    // Baja de un socio (solo administradores)
+    /**
+     * Elimina un socio existente. Solo permitido para administradores.
+     * @param id identificador del socio
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @DeleteMapping("/{id}")
@@ -48,14 +72,22 @@ public class SocioController {
         service.deleteSocio(id);
     }
 
-    // Modificación de un socio (accesible por todos los socios)
+    /**
+     * Actualiza los datos de un socio existente.
+     * @param id identificador del socio
+     * @param socioDTO nuevos datos del socio
+     * @return socio actualizado
+     */
     @CrossOrigin
     @PutMapping("/{id}")
     public Socio updateSocio(@PathVariable Long id, @RequestBody SocioDTO socioDTO) {
         return service.updateSocio(socioDTO.getNombre(), socioDTO.getApellidos(), socioDTO.getEdad(), id);
     }
 
-    // Generación de informe PDF (solo administradores)
+    /**
+     * Genera un informe PDF con la información de los socios.
+     * Solo accesible por administradores.
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @GetMapping("/informe-pdf")

@@ -9,6 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador que gestiona el registro de nuevos usuarios.
+ *
+ * Este endpoint permite que cualquier usuario se registre
+ * automáticamente con el rol SOCIO por defecto.
+ */
 @RestController
 @RequestMapping
 public class AuthController {
@@ -16,6 +22,12 @@ public class AuthController {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructor que inyecta el repositorio de usuarios y el codificador de contraseñas.
+     *
+     * @param usuarioRepository repositorio de acceso a datos de Usuario
+     * @param passwordEncoder   codificador de contraseñas seguro
+     */
     public AuthController(UsuarioRepository usuarioRepository,
                           PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
@@ -23,8 +35,12 @@ public class AuthController {
     }
 
     /**
-     * Registro de usuario con rol SOCIO por defecto.
-     * Opción: se puede permitir que UsuarioDTO incluya el rol si deseas.
+     * Endpoint de registro para nuevos usuarios.
+     *
+     * Se registran como SOCIO por defecto. Verifica que el correo no esté ya registrado.
+     *
+     * @param dto objeto con los datos del usuario (nombre, apellidos, email, contraseña)
+     * @return respuesta HTTP con mensaje de éxito o conflicto
      */
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UsuarioDTO dto) {
@@ -37,7 +53,7 @@ public class AuthController {
         usuario.setApellidos(dto.getApellidos());
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
-        usuario.setRol(Rol.SOCIO); // o dto.getRol() si decides usarlo
+        usuario.setRol(Rol.SOCIO); // por defecto
 
         usuarioRepository.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado correctamente");
