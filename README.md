@@ -35,7 +35,7 @@ Esta API está pensada para ser usada por interfaces web o móviles. Como admini
 
 ```json
 {
-  "email": "admin@espacio.com",
+  "email": "admin@ejemplo.com",
   "password": "********"
 }
 ```
