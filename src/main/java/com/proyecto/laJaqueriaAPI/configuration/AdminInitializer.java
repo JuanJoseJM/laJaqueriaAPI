@@ -21,22 +21,22 @@ public class AdminInitializer {
     @PostConstruct
     public void init() {
         //Admin
-        if (usuarioRepository.findByEmail("admin@example.com").isEmpty()) {
+        if (usuarioRepository.findByEmail("admin@ejemplo.com").isEmpty()) {
             Usuario admin = new Usuario();
-            admin.setNombre("Admin");
-            admin.setApellidos("Root");
-            admin.setEmail("admin@example.com");
+            admin.setNombre("admin");
+            admin.setApellidos("admin");
+            admin.setEmail("admin@ejemplo.com");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setRol(Rol.ADMIN);
             usuarioRepository.save(admin);
         }
 
         //Socio
-        if (usuarioRepository.findByEmail("socio@example.com").isEmpty()) {
+        if (usuarioRepository.findByEmail("socio@ejemplo.com").isEmpty()) {
             Usuario socio = new Usuario();
-            socio.setNombre("Juan");
-            socio.setApellidos("Juarez");
-            socio.setEmail("socio@example.com");
+            socio.setNombre("juan");
+            socio.setApellidos("juarez");
+            socio.setEmail("socio@ejemplo.com");
             socio.setPassword(passwordEncoder.encode("socio123"));
             socio.setRol(Rol.SOCIO);
             usuarioRepository.save(socio);
