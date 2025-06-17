@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Configuración principal de seguridad del sistema.
@@ -35,20 +33,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // ✅ Desactiva CSRF para API REST
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/usuarios/login")).permitAll() // ✅ Permitir login público
+                        .requestMatchers("/login", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ✅ Sin sesiones
+                .formLogin(form -> form
+                        .loginProcessingUrl("/login")
+                        .permitAll()
                 )
-                .formLogin(form -> form.disable()) // ⛔ Desactiva el formulario web HTML
-                .httpBasic(httpBasic -> httpBasic.disable()); // ⛔ Desactiva auth básica
+                .logout(logout -> logout.permitAll());
 
         return http.build();
     }
-    
+
     /**
      * Proporciona un codificador de contraseñas usando BCrypt.
      *
