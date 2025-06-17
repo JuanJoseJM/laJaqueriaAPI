@@ -38,10 +38,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                new AntPathRequestMatcher("/usuarios/login"),
-                                new AntPathRequestMatcher("/usuarios")  // ← permite listar usuarios
-                        ).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/usuarios/login")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
