@@ -36,16 +36,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                //  Desactiva CSRF (recomendado para APIs REST que no usan formularios)
                 .csrf(csrf -> csrf.disable())
-
-                // Define qué rutas están permitidas sin autenticación
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/usuarios/login")).permitAll()
+                        .requestMatchers(
+                                new AntPathRequestMatcher("/usuarios/login"),
+                                new AntPathRequestMatcher("/usuarios")  // ← permite listar usuarios
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-
-                // No se mantiene sesión entre peticiones (API REST sin cookies)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
