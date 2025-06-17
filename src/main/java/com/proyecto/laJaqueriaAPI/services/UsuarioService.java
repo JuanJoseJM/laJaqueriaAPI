@@ -57,14 +57,13 @@ public class UsuarioService {
      * @return objeto LoginOutput con token y correo
      */
     public LoginOutput login(String email, String password) {
-        Usuario usuario = repository.findByEmailAndPassword(email, password)
+        Usuario usuario = repository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         if (!passwordEncoder.matches(password, usuario.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        // Genera un token falso (para desarrollo)
         String accesscode = generateJWTToken(email);
         return new LoginOutput(accesscode, email);
     }
