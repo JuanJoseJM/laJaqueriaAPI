@@ -18,18 +18,23 @@ public class MqttService {
     private static final String CLIENT_ID = "jaqueria-admin";
     private static final String TOPIC = "jaqueria/domotica/control";
 
-    private final MqttClient client;
+    private MqttClient client;
 
     /**
      * Constructor que establece la conexión con el broker MQTT.
-     *
-     * @throws MqttException si ocurre un error al conectar con el broker
+     * Si no hay conexión al broker, el servicio sigue funcionando sin domótica.
      */
-    public MqttService() throws MqttException {
-        this.client = new MqttClient(BROKER, CLIENT_ID, new MemoryPersistence());
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setCleanSession(true);
-        client.connect(options);
+    public MqttService() {
+        try {
+            this.client = new MqttClient(BROKER, CLIENT_ID, new MemoryPersistence());
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setCleanSession(true);
+            client.connect(options);
+            System.out.println("[MQTT] Conectado exitosamente al broker.");
+        } catch (MqttException e) {
+            System.err.println("[MQTT] No se pudo conectar al broker: " + e.getMessage());
+            this.client = null;
+        }
     }
 
     /**
@@ -39,8 +44,12 @@ public class MqttService {
      * @throws MqttException si ocurre un error durante el envío del mensaje
      */
     public void enviarComando(String comando) throws MqttException {
-        MqttMessage message = new MqttMessage(comando.getBytes());
-        message.setQos(1);
-        client.publish(TOPIC, message);
+        if (client != null && client.isConnected()) {
+            MqttMessage message = new MqttMessage(comando.getBytes());
+            message.setQos(1);
+            client.publish(TOPIC, message);
+        } else {
+            System.err.println("[MQTT] Broker no disponible. Comando no enviado: " + comando);
+        }
     }
 }
