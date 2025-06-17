@@ -2,11 +2,13 @@ package com.proyecto.laJaqueriaAPI.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Configuración principal de seguridad del sistema.
@@ -15,16 +17,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * y uso de cifrado para contraseñas.
  */
 @Configuration
-@EnableMethodSecurity
+@EnableWebSecurity
 public class SecurityConfig {
 
     /**
      * Define la cadena de filtros de seguridad.
      * <p>
      * - Desactiva CSRF para compatibilidad con API REST.
-     * - Permite el acceso libre a "/login" y "/register".
+     * - Permite el acceso libre a "/usuarios/login".
      * - Requiere autenticación para cualquier otro endpoint.
-     * - Habilita login con formulario HTML.
+     * - Usa política sin estado para evitar sesiones HTTP.
+     * - No se usa formulario web ni autenticación básica en este caso.
      *
      * @param http objeto de configuración HTTP de Spring Security
      * @return configuración construida de la cadena de filtros
@@ -33,16 +36,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                //  Desactiva CSRF (recomendado para APIs REST que no usan formularios)
                 .csrf(csrf -> csrf.disable())
+
+                // Define qué rutas están permitidas sin autenticación
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register").permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/usuarios/login")).permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .loginProcessingUrl("/login")
-                        .permitAll()
-                )
-                .logout(logout -> logout.permitAll());
+
+                // No se mantiene sesión entre peticiones (API REST sin cookies)
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 
         return http.build();
     }
