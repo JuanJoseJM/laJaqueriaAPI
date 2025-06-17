@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Controlador global para manejar excepciones de forma consistente.
+ * Captura global de excepciones.
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
-        Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<Map<String, String>> handleRuntime(RuntimeException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 }
