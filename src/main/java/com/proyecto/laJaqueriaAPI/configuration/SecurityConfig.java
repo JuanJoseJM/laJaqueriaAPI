@@ -2,13 +2,11 @@ package com.proyecto.laJaqueriaAPI.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Configuración principal de seguridad del sistema.
@@ -17,17 +15,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  * y uso de cifrado para contraseñas.
  */
 @Configuration
-@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     /**
      * Define la cadena de filtros de seguridad.
      * <p>
      * - Desactiva CSRF para compatibilidad con API REST.
-     * - Permite el acceso libre a "/usuarios/login".
+     * - Permite el acceso libre a "/login" y "/register".
      * - Requiere autenticación para cualquier otro endpoint.
-     * - Usa política sin estado para evitar sesiones HTTP.
-     * - No se usa formulario web ni autenticación básica en este caso.
+     * - Habilita login con formulario HTML.
      *
      * @param http objeto de configuración HTTP de Spring Security
      * @return configuración construida de la cadena de filtros
@@ -38,12 +35,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/usuarios/login")).permitAll()
+                        .requestMatchers("/login", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
+                .formLogin(form -> form
+                        .loginProcessingUrl("/login")
+                        .permitAll()
+                )
+                .logout(logout -> logout.permitAll());
 
         return http.build();
     }
