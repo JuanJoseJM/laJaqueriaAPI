@@ -33,16 +33,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // Desactiva CSRF para APIs
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register").permitAll()
+                        .requestMatchers("/usuarios/login").permitAll() // ermite login personalizado
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .loginProcessingUrl("/login")
-                        .permitAll()
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS) // Sin sesiones
                 )
-                .logout(logout -> logout.permitAll());
+                .formLogin(form -> form.disable()) // Desactiva login HTML clásico
+                .httpBasic(basic -> basic.disable()); // Desactiva HTTP Basic
 
         return http.build();
     }
